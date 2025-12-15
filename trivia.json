@@ -1,0 +1,18 @@
+[
+  {
+    "question": "What is the name of the Doctor's home planet?",
+    "answers": ["gallifrey"]
+  },
+  {
+    "question": "What is the acronym TARDIS stand for?",
+    "answers": ["time and relative dimension in space"]
+  },
+  {
+    "question": "Which creators introduced the Weeping Angels?",
+    "answers": ["steven moffat", "moffat"]
+  },
+  {
+    "question": "Who was the first companion of the Ninth Doctor?",
+    "answers": ["rose", "rose tyler"]
+  }
+]
