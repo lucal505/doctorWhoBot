@@ -1,15 +1,15 @@
-//send random quote
 use crate::data_structs::*;
 use poise::serenity_prelude as serenity;
 use rand::seq::SliceRandom;
 
+//send random quote
 #[poise::command(slash_command, prefix_command)]
 pub async fn quote(ctx: Context<'_>) -> Result<(), Error> {
     let qts = &ctx.data().quotes;
     let rnd_qt = qts.choose(&mut rand::thread_rng());
 
     if let Some(quote) = rnd_qt {
-        ctx.say(quote).await?;
+        ctx.say(format!("**Random Quote: **{}", quote)).await?;
     } else {
         ctx.say("No quotes available.").await?;
     }
@@ -104,7 +104,7 @@ pub async fn points(ctx: Context<'_>) -> Result<(), Error> {
             .data()
             .points
             .lock()
-            .map_err(|e| format!("[Error]: Could not lock points file [{}]", e))?;
+            .map_err(|e| format!("[err]: Could not lock points file [{}]", e))?;
 
         let mut sorted_points: Vec<(&serenity::UserId, &u64)> = points_lock.iter().collect();
         sorted_points.sort_by(|a, b| b.1.cmp(a.1));
