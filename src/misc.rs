@@ -8,16 +8,16 @@ where
     match fs::read_to_string(file_name) {
         Ok(content) => match serde_json::from_str(&content) {
             Ok(data) => {
-                println!("Loaded {} successfully.", file_name);
+                println!("[info]: Loaded {} successfully.", file_name);
                 data
             }
             Err(e) => {
-                eprintln!("JSON ERROR in {}: {}. Using default value.", file_name, e);
+                eprintln!("[err]: {} -> {}. Using default value.", file_name, e);
                 T::default()
             }
         },
         Err(_) => {
-            println!("File could not be found: {}. Starting with empty data.", file_name);
+            println!("[warn]: File could not be found: {}. Starting with empty data.", file_name);
             T::default()
         }
     }
