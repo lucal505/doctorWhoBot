@@ -14,7 +14,7 @@ use crate::data_structs::*;
 use crate::misc::*;
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     match dotenv() {
         Ok(path) => println!("[info]: .env file found: {:?}", path),
         Err(e) => println!("[err]: .env file not found [{}]", e),
@@ -35,7 +35,7 @@ async fn main() {
     };
 
     //fara tokenul de discord botul nu poate portni, de asta sunt nevoi sa folosesc expect 
-    let token = std::env::var("DISCORD_TOKEN").expect("[err]: Missing DISCORD_TOKEN");
+    let token = std::env::var("DISCORD_TOKEN")?;
     let intents =
         serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
 
@@ -66,10 +66,9 @@ async fn main() {
 
     let mut client = serenity::ClientBuilder::new(token, intents)
         .framework(framework)
-        .await
-        .expect("[err]: Error creating client");
+        .await?;
 
-    if let Err(e) = client.start().await {
-        eprintln!("[err]: Client crashed: {}", e);
-    }
+    client.start().await?;
+
+    Ok(())
 }
