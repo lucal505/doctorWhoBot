@@ -18,7 +18,6 @@ pub async fn event_handler(
 
         let user_answer = new_message.content.trim().to_lowercase();
         let mut is_winner = false;
-        let mut correct_ans = String::new();
 
         {
             //blocam accesul altor thread-uri la intrebarea curenta
@@ -29,7 +28,6 @@ pub async fn event_handler(
 
             if let Some(question) = &*curr_question_lock && question.answers.contains(&user_answer) {
                 is_winner = true;
-                correct_ans = question.answers[0].to_uppercase();
                 *curr_question_lock = None;
             };
             
@@ -59,8 +57,8 @@ pub async fn event_handler(
                 .say(
                     &ctx.http,
                     format!(
-                        "Correct, <@{}>! The answer was: **{} +1 point!**",
-                        user_id, correct_ans
+                        "Correct, <@{}>! +1 point!**",
+                        user_id
                     ),
                 )
                 .await

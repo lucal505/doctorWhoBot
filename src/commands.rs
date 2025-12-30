@@ -109,10 +109,10 @@ pub async fn points(ctx: Context<'_>) -> Result<(), Error> {
         let mut sorted_points: Vec<(&serenity::UserId, &u64)> = points_lock.iter().collect();
         sorted_points.sort_by(|a, b| b.1.cmp(a.1));
 
-        let mut text = String::from("**🏆 Doctor Who Trivia Leaderboard 🏆**\n\n");
+        let mut text = String::from("**🏆 Trivia Leaderboard 🏆**\n\n");
 
         if sorted_points.is_empty() {
-            text.push_str("---No one has any points yet---.");
+            text.push_str("**😔 No one has any points yet 😔**");
         } else {
             for (i, (user, score)) in sorted_points.iter().enumerate().take(10) {
                 text.push_str(&format!("{}. <@{}> - {} point(s)\n", i + 1, user, score));
