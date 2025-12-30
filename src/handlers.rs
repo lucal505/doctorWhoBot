@@ -46,7 +46,7 @@ pub async fn event_handler(
                         if let Err(e) = fs::write("points.json", json_text) {
                             eprintln!("[err]: Could not update points file [{}]", e);
                         } else {
-                            println!("[info]:Points updated for user {}", user_id);
+                            println!("[info]: Points updated for user {}", user_id);
                         }
                     }
                 }
