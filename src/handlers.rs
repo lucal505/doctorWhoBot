@@ -69,7 +69,7 @@ pub async fn trivia_loop(ctx: serenity::Context, data: Data) -> Result<(), Error
         .map_err(|_| "TRIVIA_CHANNEL_ID env var not found")?;
     
     let channel_id = channel_id_str.parse::<u64>()
-        .map_err(|_| "TRIVIA_CHANNEL_ID is not a valid u64")?;
+        .map_err(|_| "TRIVIA_CHANNEL_ID is not valid")?;
         
     let target_channel = serenity::ChannelId::new(channel_id);
 
