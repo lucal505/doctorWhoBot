@@ -36,7 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     // fara tokenul de discord botul nu poate porni
     let token = std::env::var("DISCORD_TOKEN")?;
-    
+
     // ofer permisiunile de baza botului dar ii dau acces si la continutul mesajelor trimise
     let intents =
         serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
@@ -58,7 +58,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 let data_clone = data.clone();
 
                 tokio::spawn(async move {
-                    trivia_loop(ctx_clone, data_clone).await;
+                    if let Err(e) = trivia_loop(ctx_clone, data_clone).await {
+                        eprintln!("Trivia loop failed with error: {:?}", e);
+                    }
                 });
 
                 Ok(data)
