@@ -34,8 +34,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         current_question: Arc::new(Mutex::new(None)),
     };
 
-    //fara tokenul de discord botul nu poate portni, de asta sunt nevoi sa folosesc expect 
+    // fara tokenul de discord botul nu poate porni
     let token = std::env::var("DISCORD_TOKEN")?;
+    
+    // ofer permisiunile de baza botului dar ii dau acces si la continutul mesajelor trimise
     let intents =
         serenity::GatewayIntents::non_privileged() | serenity::GatewayIntents::MESSAGE_CONTENT;
 
@@ -47,16 +49,16 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             },
             ..Default::default()
         })
-        .setup(move |ctx, _ready, framework| {
+        .setup(move |ctx, ready, framework| {
+            println!("[info]: Bot logged in as {}", ready.user.name);
             Box::pin(async move {
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
 
                 let ctx_clone = ctx.clone();
-                // Acum putem folosi .clone() pentru că am adăugat #[derive(Clone)] la structura Data
-                let data_for_bg = data.clone();
+                let data_clone = data.clone();
 
                 tokio::spawn(async move {
-                    trivia_loop(ctx_clone, data_for_bg).await;
+                    trivia_loop(ctx_clone, data_clone).await;
                 });
 
                 Ok(data)
