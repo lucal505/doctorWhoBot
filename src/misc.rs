@@ -17,7 +17,10 @@ where
             }
         },
         Err(_) => {
-            println!("[warn]: File could not be found: {}. Starting with empty data.", file_name);
+            println!(
+                "[warn]: File could not be found: {}. Starting with empty data.",
+                file_name
+            );
             T::default()
         }
     }

@@ -1,7 +1,7 @@
 mod commands;
+mod data_structs;
 mod handlers;
 mod misc;
-mod data_structs;
 
 use dotenv::dotenv;
 use poise::serenity_prelude as serenity;
@@ -9,15 +9,16 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use crate::commands::*;
-use crate::handlers::*;
 use crate::data_structs::*;
+use crate::handlers::*;
 use crate::misc::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+    //fara datele din dotenv botul nu poate porni (de asta dau panic!)
     match dotenv() {
         Ok(path) => println!("[info]: .env file found: {:?}", path),
-        Err(e) => println!("[err]: .env file not found [{}]", e),
+        Err(e) => panic!("[err]: .env file {}", e),
     }
 
     let quotes: Vec<String> = load_from_file("quotes.json");

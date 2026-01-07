@@ -14,7 +14,7 @@ pub struct Episode {
 #[derive(Debug, Deserialize, Clone)]
 pub struct TriviaQuestion {
     pub question: String,
-    pub answers: Vec<String>, //lista de raspunsuri acceptate 
+    pub answers: Vec<String>, //lista de raspunsuri acceptate
 }
 
 #[derive(Clone)]
