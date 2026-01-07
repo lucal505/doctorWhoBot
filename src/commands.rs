@@ -2,7 +2,7 @@ use crate::data_structs::*;
 use poise::serenity_prelude as serenity;
 use rand::seq::SliceRandom;
 
-//send random quote
+///send random quote
 #[poise::command(slash_command, prefix_command)]
 pub async fn quote(ctx: Context<'_>) -> Result<(), Error> {
     let qts = &ctx.data().quotes;
@@ -17,7 +17,7 @@ pub async fn quote(ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
 
-//send doctor img
+///send nth doctor image
 #[poise::command(slash_command, prefix_command)]
 pub async fn doctor(
     ctx: Context<'_>,
@@ -62,6 +62,7 @@ pub async fn doctor(
     Ok(())
 }
 
+///search episodes by title
 #[poise::command(slash_command, prefix_command)]
 pub async fn episode(
     ctx: Context<'_>,
@@ -96,6 +97,7 @@ pub async fn episode(
     Ok(())
 }
 
+///show trivia leaderboard
 #[poise::command(slash_command, prefix_command)]
 pub async fn points(ctx: Context<'_>) -> Result<(), Error> {
     let leaderboard = {
